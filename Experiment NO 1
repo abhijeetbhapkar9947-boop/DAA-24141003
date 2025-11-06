@@ -1,0 +1,30 @@
+#include <iostream> 
+using namespace std; 
+// Recursive binary search 
+int binarySearch(int accounts[], int left, int right, int target) { 
+    if (left <= right) { 
+        int mid = (left + right) / 2; 
+ 
+        if (accounts[mid] == target) 
+            return mid; // Found 
+        else if (accounts[mid] > target) 
+            return binarySearch(accounts, left, mid - 1, target); 
+        else 
+            return binarySearch(accounts, mid + 1, right, target); 
+    } 
+    return -1; // Not found
+} 
+int main() { 
+// Sorted list of customer account numbers 
+int accounts[] = {10001, 10023, 10045, 10100, 10200, 10523, 10789}; 
+int n = sizeof(accounts) / sizeof(accounts[0]); 
+int target; 
+cout << "Enter account number to search: "; 
+cin >> target; 
+int result = binarySearch(accounts, 0, n - 1, target); 
+if (result != -1) 
+cout << "Account number found at index " << result << endl; 
+else 
+cout << "Account number not found." << endl; 
+return 0; 
+}
