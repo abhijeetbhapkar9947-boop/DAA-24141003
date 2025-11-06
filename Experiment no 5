@@ -1,0 +1,35 @@
+#include <iostream> 
+using namespace std; 
+int main() { 
+    int n; 
+    cout << "Enter number of vertices: "; 
+    cin >> n; 
+    int cost[10][10]; 
+    cout << "Enter the cost adjacency matrix (0 for no edge):\n"; 
+    for (int i = 0; i < n; i++) 
+        for (int j = 0; j < n; j++) 
+            cin >> cost[i][j]; 
+    int visited[10] = {0}; 
+    visited[0] = 1; // start from vertex 0 
+    int edges = 0, minCost = 0; 
+    cout << "\nEdges in MST (Prim's):\n"; 
+    while (edges < n - 1) { 
+        int min = 999, u = -1, v = -1; 
+        for (int i = 0; i < n; i++) { 
+            if (visited[i]) { 
+                for (int j = 0; j < n; j++) { 
+                    if (!visited[j] && cost[i][j] && cost[i][j] < min) { 
+                        min = cost[i][j]; 
+                        u = i; 
+                        v = j; 
+                    } 
+                } 
+            }    } 
+        visited[v] = 1; 
+        minCost += min; 
+        cout << "Edge: (" << u << "," << v << ") Cost: " << min << endl; 
+        edges++; 
+    } 
+    cout << "\nMinimum Cost (Prim's) = " << minCost << endl; 
+    return 0; 
+}
