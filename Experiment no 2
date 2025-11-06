@@ -1,0 +1,44 @@
+#include <iostream> using 
+namespace std;  
+int partition(int arr[], int low, int high) {     
+pivot = arr[high]; // last element as pivot  
+int i = low - 1;            
+= low; j < high; j++) {         
+(arr[j] < pivot) {  
+i++;             
+swap(arr[i], arr[j]);  
+}  
+}  
+for (int j 
+if 
+swap(arr[i + 1], arr[high]);     
+return i + 1;  
+}  
+void quickSort(int arr[], int low, int high) {     
+if (low < high) {         
+low, high);          
+int pi = partition(arr, 
+quickSort(arr, low, pi - 1);         
+quickSort(arr, pi + 1, high);  
+}  
+} void printArray(int arr[], int size) {  
+int 
+for (int i = 0; i < size; i++)         
+cout << arr[i] << " ";     
+<< endl;  
+}  
+int main() {     
+cout 
+int arr[50], n;     
+cout << 
+"Enter number of elements: ";  
+cin >> n;  
+cout << "Enter elements:\n";  
+for (int i = 0; i < n; i++)         
+cin >> arr[i];     
+int quickArr[50];     for (int i = 0; i < n; i++) 
+quickArr[i] = arr[i];     
+quickSort(quickArr, 0, 
+n - 1);     cout << "\nQuick Sort Result:\n";     
+printArray(quickArr, n); return 0;  
+}  
