@@ -1,0 +1,66 @@
+#include <iostream> 
+using namespace std; 
+#define INF 9999 
+#define MAX 10 
+void dijkstra(int G[MAX][MAX], int n, int start) { 
+    int cost[MAX][MAX], distance[MAX], pred[MAX]; 
+    bool visited[MAX]; 
+    int count, mindistance, nextnode, i, j; 
+    // Create cost matrix 
+    for (i = 0; i < n; i++) 
+        for (j = 0; j < n; j++) 
+            if (G[i][j] == 0) 
+                cost[i][j] = INF; 
+            else 
+                cost[i][j] = G[i][j]; 
+    // Initialize 
+    for (i = 0; i < n; i++) { 
+        distance[i] = cost[start][i]; 
+        pred[i] = start; 
+        visited[i] = false; 
+    } 
+    distance[start] = 0; 
+    visited[start] = true; 
+    count = 1; 
+    while (count < n - 1) {        // Main loop 
+        mindistance = INF; 
+        // Next node with minimum distance 
+        for (i = 0; i < n; i++) 
+            if (distance[i] < mindistance && !visited[i]) { 
+                mindistance = distance[i]; 
+                nextnode = i; 
+            } 
+        visited[nextnode] = true; 
+        for (i = 0; i < n; i++)         // Update distances 
+            if (!visited[i]) 
+                if (mindistance + cost[nextnode][i] < distance[i]) { 
+                    distance[i] = mindistance + cost[nextnode][i]; 
+                    pred[i] = nextnode; 
+                } 
+        count++; 
+    } 
+    for (i = 0; i < n; i++) 
+        if (i != start) { 
+            cout << "\nDistance from " << start << " to " << i << " = " << distance[i]; 
+            cout << "\nPath = " << i; 
+            j = i; 
+            do { 
+                j = pred[j]; 
+              cout << " <- " << j; 
+            } while (j != start); 
+            cout << endl; 
+} 
+} 
+int main() { 
+int G[MAX][MAX], n, u; 
+cout << "Enter number of vertices: "; 
+cin >> n; 
+cout << "Enter the adjacency matrix (0 if no edge):\n"; 
+for (int i = 0; i < n; i++) 
+for (int j = 0; j < n; j++) 
+cin >> G[i][j]; 
+cout << "Enter starting node: "; 
+cin >> u; 
+dijkstra(G, n, u); 
+return 0; 
+}
